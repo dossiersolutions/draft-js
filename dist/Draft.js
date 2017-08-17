@@ -9401,8 +9401,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	function editOnKeyDown(editor, e) {
 	  var keyCode = e.which;
 	  var editorState = editor._latestEditorState;
+    var contentState;
 	  console.log(keyCode, "keyCode");
 	  console.log(editorState, "editorState");
+	  console.log(editorState.getCurrentContent(), "editorState.getCurrentContent()");
 	  switch (keyCode) {
 	    case Keys.RETURN:
 	      e.preventDefault();
@@ -9429,6 +9431,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      console.log("BACKSPACE");
 	      if (isAndroid) {
 	        console.log("BACKSPACE ANDROID");
+          contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), '\xA0');
+          editor.update(EditorState.push(editorState, contentState, 'insert-characters'));
 	        e.preventDefault();
 	      }
 	      return;
@@ -9437,7 +9441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (isChrome && isOptionKeyCommand(e)) {
 	        e.preventDefault();
 	        // Insert a nbsp into the editor.
-	        var contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), '\xA0');
+	        contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), '\xA0');
 	        editor.update(EditorState.push(editorState, contentState, 'insert-characters'));
 	        return;
 	      }
