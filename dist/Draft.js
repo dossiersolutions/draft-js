@@ -9430,10 +9430,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case 229:
 	      console.log("BACKSPACE");
 	      if (isAndroid) {
+          e.preventDefault();
 	        console.log("BACKSPACE ANDROID");
           contentState = DraftModifier.replaceText(editorState.getCurrentContent(), editorState.getSelection(), '\xA0');
           editor.update(EditorState.push(editorState, contentState, 'insert-characters'));
-	        e.preventDefault();
 	      }
 	      return;
 	    case Keys.SPACE:
