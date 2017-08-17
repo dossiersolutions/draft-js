@@ -13,9 +13,8 @@
 
 jest.disableAutomock();
 
-var Immutable = require('immutable');
-
 var DraftPasteProcessor = require('DraftPasteProcessor');
+var Immutable = require('immutable');
 var CUSTOM_BLOCK_MAP = Immutable.Map({
   'header-one': {
     element: 'h1',
@@ -349,7 +348,7 @@ describe('DraftPasteProcessor', function() {
     );
     expect(output[0].getText()).toBe('This is a link, yep.');
     var entityId = output[0].getCharacterList().get(12).getEntity();
-    var entity = entityMap.__get(entityId);
+    var entity = entityMap.get(entityId);
     expect(entity.getData().url).toBe('http://www.facebook.com/');
   });
 
@@ -406,7 +405,7 @@ describe('DraftPasteProcessor', function() {
     );
     expect(output[0].getText()).toBe('This is a link, yep.');
     var entityId = output[0].getCharacterList().get(12).getEntity();
-    var entity = entityMap.__get(entityId);
+    var entity = entityMap.get(entityId);
     expect(entity.getData().url).toBe('mailto:example@example.com');
   });
 

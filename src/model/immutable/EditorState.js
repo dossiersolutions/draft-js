@@ -12,18 +12,18 @@
 
 'use strict';
 
+import type {BlockMap} from 'BlockMap';
+import type {DraftDecoratorType} from 'DraftDecoratorType';
+import type {DraftInlineStyle} from 'DraftInlineStyle';
+import type {EditorChangeType} from 'EditorChangeType';
+import type {EntityMap} from 'EntityMap';
+import type {List, OrderedMap} from 'immutable';
+
 var BlockTree = require('BlockTree');
 var ContentState = require('ContentState');
 var EditorBidiService = require('EditorBidiService');
 var Immutable = require('immutable');
 var SelectionState = require('SelectionState');
-
-import type {BlockMap} from 'BlockMap';
-import type {DraftDecoratorType} from 'DraftDecoratorType';
-import type {DraftInlineStyle} from 'DraftInlineStyle';
-import type {EntityMap} from 'EntityMap';
-import type {List, OrderedMap} from 'immutable';
-import type {EditorChangeType} from 'EditorChangeType';
 
 var {
   OrderedSet,
@@ -573,8 +573,8 @@ function regenerateTreeForNewDecorator(
       .toSeq()
       .filter(block => {
         return (
-          decorator.getDecorations(block, content) !==
-          existingDecorator.getDecorations(block, content)
+          decorator.getDecorations(content, block) !==
+          existingDecorator.getDecorations(content, block)
         );
       })
       .map(block => BlockTree.generate(content, block, decorator)),

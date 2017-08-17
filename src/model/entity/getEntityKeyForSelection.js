@@ -14,8 +14,8 @@
 'use strict';
 
 import type ContentState from 'ContentState';
-import type SelectionState from 'SelectionState';
 import type {EntityMap} from 'EntityMap';
+import type SelectionState from 'SelectionState';
 
 /**
  * Return the entity key that should be used when inserting text for the
@@ -58,7 +58,7 @@ function filterKey(
   entityKey: ?string,
 ): ?string {
   if (entityKey) {
-    var entity = entityMap.__get(entityKey);
+    var entity = entityMap.get(entityKey);
     return entity.getMutability() === 'MUTABLE' ? entityKey : null;
   }
   return null;

@@ -13,9 +13,9 @@ richness beyond styled text to their editors. Links, mentions, and embedded
 content can all be implemented using entities.
 
 In the Draft repository, the
-[link editor](https://github.com/facebook/draft-js/tree/master/examples/draft-0-10-0/link)
+[link editor](https://github.com/facebook/draft-js/tree/master/examples/link)
 and
-[entity demo](https://github.com/facebook/draft-js/tree/master/examples/draft-0-10-0/entity)
+[entity demo](https://github.com/facebook/draft-js/tree/master/examples/entity)
 provide live code examples to help clarify how entities can be used, as well
 as their built-in behavior.
 
@@ -46,8 +46,7 @@ All entities are stored in the ContentState record. The entites  are referenced
 by key within `ContentState` and React components used to decorate annotated
 ranges. (We are currently deprecating a previous API for accessing Entities; see
 issue
-[#839](https://github.com/facebook/draft-js/issues/839)
-.)
+[#839](https://github.com/facebook/draft-js/issues/839).)
 
 Using [decorators](/docs/advanced-topics-decorators.html) or
 [custom block components](/docs/advanced-topics-block-components.html), you can
@@ -143,5 +142,5 @@ while the latter completely swaps in the new data object.
 The next article in this section covers the usage of decorator objects, which
 can be used to retrieve entities for rendering purposes.
 
-The [link editor example](https://github.com/facebook/draft-js/tree/master/examples/draft-0-10-0/link)
+The [link editor example](https://github.com/facebook/draft-js/tree/master/examples/link)
 provides a working example of entity creation and decoration in use.

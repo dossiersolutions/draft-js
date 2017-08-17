@@ -13,11 +13,11 @@
 
 'use strict';
 
-var Immutable = require('immutable');
-
 import type ContentBlock from 'ContentBlock';
-import type {DraftDecorator} from 'DraftDecorator';
 import type ContentState from 'ContentState';
+import type {DraftDecorator} from 'DraftDecorator';
+
+var Immutable = require('immutable');
 
 var {List} = Immutable;
 
@@ -53,8 +53,8 @@ class CompositeDraftDecorator {
   }
 
   getDecorations(
-    block: ContentBlock,
     contentState: ContentState,
+    block: ContentBlock,
   ): List<?string> {
     var decorations = Array(block.getText().length).fill(null);
 
@@ -71,7 +71,7 @@ class CompositeDraftDecorator {
             counter++;
           }
         };
-        strategy(block, callback, contentState);
+        strategy(contentState, block, callback);
       },
     );
 

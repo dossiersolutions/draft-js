@@ -12,17 +12,20 @@
 
 'use strict';
 
+import type {RawDraftContentState} from 'RawDraftContentState';
+
 var ContentBlock = require('ContentBlock');
 var ContentState = require('ContentState');
-var DraftEntity = require('DraftEntity');
+var DraftEntityInstance = require('DraftEntityInstance');
 
+
+const addEntityToEntityMap = require('addEntityToEntityMap');
 var createCharacterList = require('createCharacterList');
 var decodeEntityRanges = require('decodeEntityRanges');
 var decodeInlineStyleRanges = require('decodeInlineStyleRanges');
 var generateRandomKey = require('generateRandomKey');
 var Immutable = require('immutable');
-
-import type {RawDraftContentState} from 'RawDraftContentState';
+var {OrderedMap} = Immutable;
 
 var {Map} = Immutable;
 
@@ -33,14 +36,21 @@ function convertFromRawToDraftState(
 
   var fromStorageToLocal = {};
 
-  // TODO: Update this once we completely remove DraftEntity
-  Object.keys(entityMap).forEach(
-    storageKey => {
+  const newEntityMap = Object.keys(entityMap).reduce(
+    (updatedEntityMap, storageKey) => {
       var encodedEntity = entityMap[storageKey];
       var {type, mutability, data} = encodedEntity;
-      var newKey = DraftEntity.__create(type, mutability, data || {});
+      const instance = new DraftEntityInstance({
+        type,
+        mutability,
+        data: data || {},
+      });
+      const tempEntityMap = addEntityToEntityMap(updatedEntityMap, instance);
+      const newKey = tempEntityMap.keySeq().last();
       fromStorageToLocal[storageKey] = newKey;
+      return tempEntityMap;
     },
+    OrderedMap(),
   );
 
   var contentBlocks = blocks.map(
@@ -77,7 +87,7 @@ function convertFromRawToDraftState(
     },
   );
 
-  return ContentState.createFromBlockArray(contentBlocks);
+  return ContentState.createFromBlockArray(contentBlocks, newEntityMap);
 }
 
 module.exports = convertFromRawToDraftState;

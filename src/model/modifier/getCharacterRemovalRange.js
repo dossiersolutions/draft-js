@@ -13,15 +13,15 @@
 
 'use strict';
 
+import type ContentBlock from 'ContentBlock';
+import type {DraftRemovalDirection} from 'DraftRemovalDirection';
+import type {EntityMap} from 'EntityMap';
+import type SelectionState from 'SelectionState';
+
 var DraftEntitySegments = require('DraftEntitySegments');
 
 var getRangesForDraftEntity = require('getRangesForDraftEntity');
 var invariant = require('invariant');
-
-import type ContentBlock from 'ContentBlock';
-import type {DraftRemovalDirection} from 'DraftRemovalDirection';
-import type SelectionState from 'SelectionState';
-import type {EntityMap} from 'EntityMap';
 
 /**
  * Given a SelectionState and a removal direction, determine the entire range
@@ -124,7 +124,7 @@ function getEntityRemovalRange(
 ): SelectionState {
   var start = selectionState.getStartOffset();
   var end = selectionState.getEndOffset();
-  var entity = entityMap.__get(entityKey);
+  var entity = entityMap.get(entityKey);
   var mutability = entity.getMutability();
   const sideToConsider = isEntityAtStart ? start : end;
 
