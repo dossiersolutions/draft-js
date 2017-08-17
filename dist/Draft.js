@@ -9401,7 +9401,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function editOnKeyDown(editor, e) {
 	  var keyCode = e.which;
 	  var editorState = editor._latestEditorState;
-
+	  console.log(keyCode, "keyCode");
+	  console.log(editorState, "editorState");
 	  switch (keyCode) {
 	    case Keys.RETURN:
 	      e.preventDefault();
