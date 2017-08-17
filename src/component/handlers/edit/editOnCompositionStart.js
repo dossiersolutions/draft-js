@@ -12,9 +12,9 @@
 
 'use strict';
 
-import type DraftEditor from 'DraftEditor.react';
-
 var EditorState = require('EditorState');
+
+import type DraftEditor from 'DraftEditor.react';
 
 /**
  * The user has begun using an IME input system. Switching to `composite` mode

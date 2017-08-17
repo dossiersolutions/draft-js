@@ -15,7 +15,6 @@ jest
   .disableAutomock();
 
 var Immutable = require('immutable');
-
 var applyEntityToContentBlock = require('applyEntityToContentBlock');
 var getSampleStateForTesting = require('getSampleStateForTesting');
 var removeEntitiesAtEdges = require('removeEntitiesAtEdges');

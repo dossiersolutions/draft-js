@@ -13,9 +13,9 @@
 
 'use strict';
 
-import type ContentBlock from 'ContentBlock';
-
 var CharacterMetadata = require('CharacterMetadata');
+
+import type ContentBlock from 'ContentBlock';
 
 function applyEntityToContentBlock(
   contentBlock: ContentBlock,

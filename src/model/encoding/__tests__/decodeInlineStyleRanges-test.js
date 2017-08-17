@@ -13,7 +13,8 @@
 
 jest.disableAutomock();
 
-var {List} = require('immutable');
+var decodeInlineStyleRanges = require('decodeInlineStyleRanges');
+
 var {
   BOLD,
   BOLD_ITALIC,
@@ -23,7 +24,7 @@ var {
   NONE,
 } = require('SampleDraftInlineStyle');
 
-var decodeInlineStyleRanges = require('decodeInlineStyleRanges');
+var {List} = require('immutable');
 
 function areEqual(a, b) {
   expect(List(a).equals(List(b))).toBeTruthy();

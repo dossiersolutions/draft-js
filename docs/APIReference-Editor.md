@@ -249,17 +249,7 @@ onUpArrow?: (e: SyntheticKeyboardEvent) => void
 ```
 onDownArrow?: (e: SyntheticKeyboardEvent) => void
 ```
-### Mouse events
 
-### onFocus
-```
-onFocus?: (e: SyntheticFocusEvent) => void
-```
-
-### onBlur
-```
-onBlur?: (e: SyntheticFocusEvent) => void
-```
 
 ## Methods
 

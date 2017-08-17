@@ -29,7 +29,7 @@ describe('DraftRemovableWord', function() {
   var withNumbers = 'f14 tomcat';
 
   beforeEach(function() {
-    jest.resetModules();
+    jest.resetModuleRegistry();
     forward = DraftRemovableWord.getForward;
     backward = DraftRemovableWord.getBackward;
   });

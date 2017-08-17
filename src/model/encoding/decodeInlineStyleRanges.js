@@ -13,8 +13,9 @@
 
 'use strict';
 
-var {OrderedSet} = require('immutable');
 var UnicodeUtils = require('UnicodeUtils');
+
+var {OrderedSet} = require('immutable');
 
 var {substr} = UnicodeUtils;
 

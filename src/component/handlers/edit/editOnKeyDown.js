@@ -12,9 +12,6 @@
 
 'use strict';
 
-import type DraftEditor from 'DraftEditor.react';
-import type {DraftEditorCommand} from 'DraftEditorCommand';
-
 var DraftModifier = require('DraftModifier');
 var EditorState = require('EditorState');
 var KeyBindingUtil = require('KeyBindingUtil');
@@ -22,21 +19,23 @@ var Keys = require('Keys');
 var SecondaryClipboard = require('SecondaryClipboard');
 var UserAgent = require('UserAgent');
 
-const isEventHandled = require('isEventHandled');
 var keyCommandBackspaceToStartOfLine = require('keyCommandBackspaceToStartOfLine');
 var keyCommandBackspaceWord = require('keyCommandBackspaceWord');
 var keyCommandDeleteWord = require('keyCommandDeleteWord');
 var keyCommandInsertNewline = require('keyCommandInsertNewline');
-var keyCommandMoveSelectionToEndOfBlock = require('keyCommandMoveSelectionToEndOfBlock');
-var keyCommandMoveSelectionToStartOfBlock = require('keyCommandMoveSelectionToStartOfBlock');
 var keyCommandPlainBackspace = require('keyCommandPlainBackspace');
 var keyCommandPlainDelete = require('keyCommandPlainDelete');
+var keyCommandMoveSelectionToEndOfBlock = require('keyCommandMoveSelectionToEndOfBlock');
+var keyCommandMoveSelectionToStartOfBlock = require('keyCommandMoveSelectionToStartOfBlock');
 var keyCommandTransposeCharacters = require('keyCommandTransposeCharacters');
 var keyCommandUndo = require('keyCommandUndo');
 
+import type DraftEditor from 'DraftEditor.react';
+import type {DraftEditorCommand} from 'DraftEditorCommand';
+const isEventHandled = require('isEventHandled');
+
 var {isOptionKeyCommand} = KeyBindingUtil;
 var isChrome = UserAgent.isBrowser('Chrome');
-var isAndroid = UserAgent.isPlatform('Android');
 
 /**
  * Map a `DraftEditorCommand` command value to a corresponding function.
@@ -87,8 +86,7 @@ function onKeyCommand(
 function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent): void {
   var keyCode = e.which;
   var editorState = editor._latestEditorState;
-  console.log(keyCode, "keyCode");
-  console.log(editorState, "editorState");
+
   switch (keyCode) {
     case Keys.RETURN:
       e.preventDefault();
@@ -113,13 +111,6 @@ function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent): void {
       return;
     case Keys.DOWN:
       editor.props.onDownArrow && editor.props.onDownArrow(e);
-      return;
-    case Keys.BACKSPACE:
-      console.log("BACKSPACE");
-      if(isAndroid) {
-        console.log("BACKSPACE ANDROID");
-        e.preventDefault();
-      }
       return;
     case Keys.SPACE:
       // Handling for OSX where option + space scrolls.

@@ -16,6 +16,7 @@ jest.disableAutomock();
 var CharacterMetadata = require('CharacterMetadata');
 var ContentBlock = require('ContentBlock');
 var Immutable = require('immutable');
+
 var {
   NONE,
   BOLD,

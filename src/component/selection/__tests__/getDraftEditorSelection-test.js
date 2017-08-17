@@ -18,8 +18,9 @@ var ContentBlock = require('ContentBlock');
 var ContentState = require('ContentState');
 var EditorState = require('EditorState');
 var Immutable = require('immutable');
-var {BOLD} = require('SampleDraftInlineStyle');
 var SelectionState = require('SelectionState');
+
+var {BOLD} = require('SampleDraftInlineStyle');
 var {EMPTY} = CharacterMetadata;
 
 var getDraftEditorSelection = require('getDraftEditorSelection');

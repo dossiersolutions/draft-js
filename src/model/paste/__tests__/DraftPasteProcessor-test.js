@@ -13,8 +13,9 @@
 
 jest.disableAutomock();
 
-var DraftPasteProcessor = require('DraftPasteProcessor');
 var Immutable = require('immutable');
+
+var DraftPasteProcessor = require('DraftPasteProcessor');
 var CUSTOM_BLOCK_MAP = Immutable.Map({
   'header-one': {
     element: 'h1',

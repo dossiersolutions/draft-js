@@ -15,8 +15,8 @@
 'use strict';
 
 import type {BlockMap} from 'BlockMap';
-import type {DraftEditorModes} from 'DraftEditorModes';
 import type {DraftEditorDefaultProps, DraftEditorProps} from 'DraftEditorProps';
+import type {DraftEditorModes} from 'DraftEditorModes';
 import type {DraftScrollPosition} from 'DraftScrollPosition';
 
 const DefaultDraftBlockRenderMap = require('DefaultDraftBlockRenderMap');
@@ -26,6 +26,7 @@ const DraftEditorContents = require('DraftEditorContents.react');
 const DraftEditorDragHandler = require('DraftEditorDragHandler');
 const DraftEditorEditHandler = require('DraftEditorEditHandler');
 const DraftEditorPlaceholder = require('DraftEditorPlaceholder.react');
+
 const EditorState = require('EditorState');
 const React = require('React');
 const ReactDOM = require('ReactDOM');
@@ -37,6 +38,7 @@ const cx = require('cx');
 const emptyFunction = require('emptyFunction');
 const generateRandomKey = require('generateRandomKey');
 const getDefaultKeyBinding = require('getDefaultKeyBinding');
+
 const getScrollPosition = require('getScrollPosition');
 const invariant = require('invariant');
 const nullthrows = require('nullthrows');
@@ -88,7 +90,6 @@ class DraftEditor extends React.Component {
   _editorKey: string;
   _placeholderAccessibilityID: string;
   _latestEditorState: EditorState;
-  _latestCommittedEditorState: EditorState;
   _pendingStateFromBeforeInput: void | EditorState;
 
   /**
@@ -99,7 +100,6 @@ class DraftEditor extends React.Component {
   _onCharacterData: Function;
   _onCompositionEnd: Function;
   _onCompositionStart: Function;
-  _onCompositionUpdate: Function;
   _onCopy: Function;
   _onCut: Function;
   _onDragEnd: Function;
@@ -138,14 +138,12 @@ class DraftEditor extends React.Component {
     this._editorKey = props.editorKey || generateRandomKey();
     this._placeholderAccessibilityID = 'placeholder-' + this._editorKey;
     this._latestEditorState = props.editorState;
-    this._latestCommittedEditorState = props.editorState;
 
     this._onBeforeInput = this._buildHandler('onBeforeInput');
     this._onBlur = this._buildHandler('onBlur');
     this._onCharacterData = this._buildHandler('onCharacterData');
     this._onCompositionEnd = this._buildHandler('onCompositionEnd');
     this._onCompositionStart = this._buildHandler('onCompositionStart');
-    this._onCompositionUpdate = this._buildHandler('onCompositionUpdate');
     this._onCopy = this._buildHandler('onCopy');
     this._onCut = this._buildHandler('onCut');
     this._onDragEnd = this._buildHandler('onDragEnd');
@@ -230,13 +228,6 @@ class DraftEditor extends React.Component {
       wordWrap: 'break-word',
     };
 
-    // The aria-expanded and aria-haspopup properties should only be rendered
-    // for a combobox.
-    const ariaRole = this.props.role || 'textbox';
-    const ariaExpanded = ariaRole === 'combobox'
-      ? !!this.props.ariaExpanded
-      : null;
-
     return (
       <div className={rootClass}>
         {this._renderPlaceholder()}
@@ -248,13 +239,13 @@ class DraftEditor extends React.Component {
               readOnly ? null : this.props.ariaActiveDescendantID
             }
             aria-autocomplete={readOnly ? null : this.props.ariaAutoComplete}
-            aria-controls={readOnly ? null : this.props.ariaControls}
             aria-describedby={
               this._showPlaceholder() ? this._placeholderAccessibilityID : null
             }
-            aria-expanded={readOnly ? null : ariaExpanded}
+            aria-expanded={readOnly ? null : this.props.ariaExpanded}
+            aria-haspopup={readOnly ? null : this.props.ariaHasPopup}
             aria-label={this.props.ariaLabel}
-            aria-multiline={this.props.ariaMultiline}
+            aria-owns={readOnly ? null : this.props.ariaOwneeID}
             autoCapitalize={this.props.autoCapitalize}
             autoComplete={this.props.autoComplete}
             autoCorrect={this.props.autoCorrect}
@@ -272,7 +263,6 @@ class DraftEditor extends React.Component {
             onBlur={this._onBlur}
             onCompositionEnd={this._onCompositionEnd}
             onCompositionStart={this._onCompositionStart}
-            onCompositionUpdate={this._onCompositionUpdate}
             onCopy={this._onCopy}
             onCut={this._onCut}
             onDragEnd={this._onDragEnd}
@@ -290,7 +280,7 @@ class DraftEditor extends React.Component {
             onPaste={this._onPaste}
             onSelect={this._onSelect}
             ref="editor"
-            role={readOnly ? null : ariaRole}
+            role={readOnly ? null : (this.props.role || 'textbox')}
             spellCheck={allowSpellCheck && this.props.spellCheck}
             style={contentStyle}
             suppressContentEditableWarning
@@ -343,7 +333,6 @@ class DraftEditor extends React.Component {
 
   componentDidUpdate(): void {
     this._blockSelectEvents = false;
-    this._latestCommittedEditorState = this.props.editorState;
   }
 
   /**

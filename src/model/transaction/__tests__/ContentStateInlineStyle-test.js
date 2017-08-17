@@ -14,6 +14,7 @@
 jest.disableAutomock();
 
 const ContentStateInlineStyle = require('ContentStateInlineStyle');
+
 const {
   List,
   Repeat,

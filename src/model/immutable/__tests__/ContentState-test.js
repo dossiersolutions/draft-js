@@ -99,7 +99,7 @@ describe('ContentState', () => {
     let contentState;
     beforeEach(() => {
       contentState = ContentState.createFromText('');
-      jest.resetModules();
+      jest.resetModuleRegistry();
     });
 
     function createLink() {
