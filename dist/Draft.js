@@ -9353,6 +9353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var isOptionKeyCommand = KeyBindingUtil.isOptionKeyCommand;
 
 	var isChrome = UserAgent.isBrowser('Chrome');
+	var isAndroid = UserAgent.isPlatform('Android');
 
 	/**
 	 * Map a `DraftEditorCommand` command value to a corresponding function.
@@ -9422,6 +9423,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return;
 	    case Keys.DOWN:
 	      editor.props.onDownArrow && editor.props.onDownArrow(e);
+	      return;
+	    case Keys.BACKSPACE:
+	      console.log("BACKSPACE");
+	      if (isAndroid) {
+	        console.log("BACKSPACE ANDROID");
+	        e.preventDefault();
+	      }
 	      return;
 	    case Keys.SPACE:
 	      // Handling for OSX where option + space scrolls.

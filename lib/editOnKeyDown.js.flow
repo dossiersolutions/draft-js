@@ -36,6 +36,7 @@ var keyCommandUndo = require('./keyCommandUndo');
 
 var { isOptionKeyCommand } = KeyBindingUtil;
 var isChrome = UserAgent.isBrowser('Chrome');
+var isAndroid = UserAgent.isPlatform('Android');
 
 /**
  * Map a `DraftEditorCommand` command value to a corresponding function.
@@ -105,6 +106,13 @@ function editOnKeyDown(editor: DraftEditor, e: SyntheticKeyboardEvent): void {
       return;
     case Keys.DOWN:
       editor.props.onDownArrow && editor.props.onDownArrow(e);
+      return;
+    case Keys.BACKSPACE:
+      console.log("BACKSPACE");
+      if (isAndroid) {
+        console.log("BACKSPACE ANDROID");
+        e.preventDefault();
+      }
       return;
     case Keys.SPACE:
       // Handling for OSX where option + space scrolls.
