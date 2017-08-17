@@ -9425,7 +9425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    case Keys.DOWN:
 	      editor.props.onDownArrow && editor.props.onDownArrow(e);
 	      return;
-	    case Keys.BACKSPACE:
+	    case 229:
 	      console.log("BACKSPACE");
 	      if (isAndroid) {
 	        console.log("BACKSPACE ANDROID");
